@@ -1,8 +1,8 @@
 local weather_images = os.getenv("HOME") .. "/.config/awesome/theme/weather/"
 local days = maker.clock(colors.orange, " Bold 10", "%d, %B %Y")
 
-local api_key = "08c5cb1907e7d4f5bb5834dd0e4fd027"
-local city_id = "3461519"
+local api_key = "your api_key"
+local city_id = "your city_id"
 local cmd = "curl -s 'http://api.openweathermap.org/data/2.5/weather?id=" ..
     city_id .. "&appid=" .. api_key .. "&units=metric'"
 
