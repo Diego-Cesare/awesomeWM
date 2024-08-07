@@ -1,0 +1,6 @@
+require("configs.keys")
+require("configs.mouse")
+require("configs.rules")
+require("configs.signals")
+require("configs.titlebar")
+require("configs.autostart")

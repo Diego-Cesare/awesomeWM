@@ -1,0 +1,8 @@
+open_notify = require("widgets.control_center.notify")
+notify_center = require("widgets.control_center.notifications_center")
+volume = require("widgets.control_center.volume")
+calendar = require("widgets.control_center.calendar")
+weather = require("widgets.control_center.weather")
+clock = require("widgets.control_center.analogic_clock")
+uptime = require("widgets.control_center.uptime")
+screenshot = require("widgets.control_center.screenshot")

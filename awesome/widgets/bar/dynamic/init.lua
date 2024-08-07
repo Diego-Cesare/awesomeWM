@@ -1,0 +1,6 @@
+notify_box = require("widgets.bar.dynamic.notify_box")
+music_box = require("widgets.bar.dynamic.music_box")
+volume_box = require("widgets.bar.dynamic.volume_box")
+require("widgets.bar.dynamic.usb_box")
+require("widgets.bar.dynamic.updates")
+wall = require("widgets.bar.dynamic.wallpaper")
