@@ -1,4 +1,4 @@
-local weather_images = os.getenv("HOME") .. "/.config/awesome/user/weather/"
+local weather_images = os.getenv("HOME") .. "/.config/awesome/theme/weather/"
 
 local api_key = "your api key"
 local city_id = "your city_id"

@@ -1,4 +1,4 @@
-local weather_images = os.getenv("HOME") .. "/.config/awesome/user/weather/"
+local weather_images = os.getenv("HOME") .. "/.config/awesome/theme/weather/"
 local days = maker.clock(colors.orange, " Bold 10", "%d, %B %Y")
 
 local api_key = "your api_key"
