@@ -44,20 +44,14 @@ local systraybutton = wibox.widget {
     widget = wibox.container.margin
 }
 
-local floating_bar = wibox.widget {
-    widget = wibox.widget.imagebox,
-    valign = "center",
-    halign = "center",
-    resize = true,
-    image = icons.float_bar,
-    border_width = dpi(2),
-    buttons = {
-        awful.button({}, 1, function()
-            switch_float()
-            awesome.emit_signal("float::bar")
-        end)
-    },
-}
+
+local floating_bar = maker.image(icons.float_bar, colors.transparent, 1, 0, "float")
+floating_bar:buttons({
+    awful.button({}, 1, function()
+        switch_float()
+        awesome.emit_signal("float::bar")
+    end)
+})
 
 local box_a = { floating_bar }
 
@@ -84,7 +78,7 @@ awesome.connect_signal("widget::systray", function()
 end)
 
 awesome.connect_signal("theme::icons", function(icons)
-    floating_bar:set_image(icons.float_bar)
+    floating_bar:get_children_by_id("float")[1]:set_image(icons.float_bar)
 end)
 
 awesome.connect_signal("change::theme", function()

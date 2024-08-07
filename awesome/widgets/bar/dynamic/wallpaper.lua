@@ -158,24 +158,7 @@ next_image:connect_signal("button::press", function(_, _, _, button)
     end
 end)
 
-local wall = wibox.widget({
-    widget = wibox.container.background,
-    bg = colors.transparent,
-    {
-        widget = wibox.container.margin,
-        margins = dpi(3),
-        {
-            widget = wibox.widget.imagebox,
-            image = icons.wallpaper,
-            id = "image_icon",
-            valign = "center",
-            halign = "center",
-            horizontal_fit_policy = "cover",
-            vertical_fit_policy = "cover",
-            resize = true,
-        },
-    },
-})
+local wall = maker.image(icons.wallpaper, colors.transparent, 3, 0, "image_icon")
 
 awesome.connect_signal("theme::icons", function(icons)
     wall:get_children_by_id("image_icon")[1]:set_image(icons.wallpaper)
@@ -200,7 +183,6 @@ local description_all = wibox.widget({
 awesome.connect_signal("theme::colors", function(colors)
     description:set_markup(maker.text(colors.fg, "Bold 9", "Selecionar ou"))
     description_all:set_markup(maker.text(colors.fg, "Bold 9", "Mostrar mais"))
-    wall:set_bg(colors.transparent)
 end)
 
 local description_box = wibox.widget({

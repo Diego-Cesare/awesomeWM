@@ -1,24 +1,4 @@
---local music_player = require("widgets.music_widget.music")
-
-local player_img = wibox.widget({
-  widget = wibox.container.background,
-  bg = colors.transparent,
-  {
-    widget = wibox.container.margin,
-    margins = dpi(3),
-    {
-      widget = wibox.widget.imagebox,
-      image = icons.music,
-      id = "music",
-      valign = "center",
-      halign = "center",
-      horizontal_fit_policy = "cover",
-      vertical_fit_policy = "cover",
-      resize = true,
-    },
-  },
-})
-
+local player_img = maker.image(icons.music, colors.transparent, 3, 0, "music")
 
 local song_info = wibox.widget({
   widget = wibox.widget.textbox,
@@ -116,12 +96,11 @@ local music_widget = wibox.widget({
 })
 
 awesome.connect_signal("theme::colors", function(colors)
-  player_img:set_bg(colors.transparent)
   music_graph:set_background_color(colors.fg .. "10")
 end)
 
 awesome.connect_signal("theme::icons", function(icons)
-  player_img:get_children_by_id("music")[1].image = icons.music
+  player_img:get_children_by_id("music")[1]:set_image(icons.music)
 end)
 
 return music_widget

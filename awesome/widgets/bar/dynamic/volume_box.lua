@@ -1,21 +1,4 @@
-local volume_icon = wibox.widget({
-    widget = wibox.container.background,
-    bg = colors.transparent,
-    {
-        widget = wibox.container.margin,
-        margins = dpi(3),
-        {
-            widget = wibox.widget.imagebox,
-            image = icons.volume,
-            id = "volume",
-            valign = "center",
-            halign = "center",
-            horizontal_fit_policy = "cover",
-            vertical_fit_policy = "cover",
-            resize = true,
-        },
-    },
-})
+local volume_icon = maker.image(icons.volume, colors.transparent, 3, 0, "volume")
 
 local volume_slider = wibox.widget({
     widget = wibox.widget.slider,
@@ -108,7 +91,6 @@ local volume_box = wibox.widget({
 awesome.connect_signal("theme::colors", function(colors)
     volume_description:set_markup(maker.text(colors.fg, "Bold 10", "Volume"))
     volume_slider.bar_color = colors.fg .. "50"
-    volume_icon:set_bg(colors.transparent)
 end)
 
 awesome.connect_signal("theme::icons", function(icons)

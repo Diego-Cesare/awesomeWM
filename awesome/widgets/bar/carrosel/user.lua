@@ -1,21 +1,5 @@
 local clock_box = require("widgets.bar.carrosel.clock_box")
-
-local usericon = wibox.widget({
-  widget = wibox.container.background,
-  bg = colors.transparent,
-  border_width = dpi(0),
-  border_color = colors.magenta,
-  shape = gears.shape.circle,
-  {
-    widget = wibox.widget.imagebox,
-    image = icons.user,
-    valign = "center",
-    halign = "center",
-    horizontal_fit_policy = "cover",
-    vertical_fit_policy = "cover",
-    resize = true,
-  },
-})
+local usericon = maker.image(icons.user, colors.transparent, 0, 50, nil)
 
 local wm_name = wibox.widget({
   widget = wibox.widget.textbox,

@@ -1,30 +1,12 @@
 local notification_count = 0
 
-local disable = wibox.widget {
-    widget = wibox.container.background,
-    bg = colors.transparent,
-    shape = gears.shape.circle,
-    {
-        widget = wibox.container.margin,
-        margins = dpi(5),
-        {
-            widget = wibox.widget.imagebox,
-            image = icons.bell_active,
-            id = "icon_notify",
-            valign = "center",
-            halign = "center",
-            horizontal_fit_policy = "cover",
-            vertical_fit_policy = "cover",
-            resize = true,
-        },
-    },
-    buttons = gears.table.join(
-        awful.button({}, 1, function()
-            not_disturbed:toggle_silent()
-            awesome.emit_signal("disable::notify")
-        end)
-    )
-}
+local disable = maker.image(icons.bell_active, colors.transparent, 6, 0, "icon_notify")
+disable:buttons({
+    awful.button({}, 1, function()
+        not_disturbed:toggle_silent()
+        awesome.emit_signal("disable::notify")
+    end)
+})
 
 maker.hover(disable, colors.fg .. "10", colors.transparent, 0)
 
@@ -36,23 +18,7 @@ awesome.connect_signal("disable::notify", function()
     end
 end)
 
-local mini_icon = wibox.widget {
-    widget = wibox.container.background,
-    bg = colors.transparent,
-    border_width = dpi(0),
-    border_color = colors.magenta,
-    shape = gears.shape.circle,
-    {
-        widget = wibox.widget.imagebox,
-        image = icons.user,
-        id = "icon_user",
-        valign = "center",
-        halign = "center",
-        horizontal_fit_policy = "cover",
-        vertical_fit_policy = "cover",
-        resize = true,
-    },
-}
+local mini_icon = maker.image(icons.user, colors.transparent, 0, 50, "icon_user")
 
 local notification_count_widget = wibox.widget {
     widget = wibox.widget.textbox,

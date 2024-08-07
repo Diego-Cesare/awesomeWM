@@ -25,36 +25,18 @@ local function update_mode_icon()
   end
 end
 
-local mode_bnt = wibox.widget({
-  widget = wibox.widget.imagebox,
-  valign = "center",
-  halign = "center",
-  resize = true,
-  image = update_mode_icon(),
-  border_width = dpi(2),
-  buttons = awful.button(nil, 1, function()
-    switch_theme()
-    if settings.theme == "dark" then
-      settings.theme = "light"
-    else
-      settings.theme = "dark"
-    end
-    gears.timer.start_new(0.5, function()
-      awesome.emit_signal("change::theme")
-      awesome.emit_signal("change::icons")
-      return false
-    end)
-  end),
+local menu_bnt = maker.image(icons.menu, colors.transparent, 16, 0, "menu_bnt")
+local info_bnt = maker.image(icons.infos, colors.transparent, 16, 0, "info_bnt")
+local mode_bnt = maker.image(update_mode_icon(), colors.transparent, 16, 0, "mode_bnt")
+
+menu_bnt:buttons({
+  awful.button(nil, 1, function()
+    launcher:toggle()
+  end)
 })
 
-local info_bnt = wibox.widget({
-  widget = wibox.widget.imagebox,
-  valign = "center",
-  halign = "center",
-  resize = true,
-  image = icons.infos,
-  border_width = dpi(2),
-  buttons = awful.button(nil, 1, function()
+info_bnt:buttons({
+  awful.button(nil, 1, function()
     if not info_center.visible then
       info_center.visible = true
       anime.move_x(info_center, 10, 80, "left")
@@ -68,29 +50,30 @@ local info_bnt = wibox.widget({
   end)
 })
 
-local menu_bnt = wibox.widget({
-  widget = wibox.widget.imagebox,
-  valign = "center",
-  halign = "center",
-  resize = true,
-  image = icons.menu,
-  border_width = dpi(2),
-  buttons = awful.button(nil, 1, function()
-    launcher:toggle()
-    anime.move_x(launcher.popup_widget, 10, 80, "left")
+mode_bnt:buttons({
+  awful.button(nil, 1, function()
+    switch_theme()
+    if settings.theme == "dark" then
+      settings.theme = "light"
+    else
+      settings.theme = "dark"
+    end
+    gears.timer.start_new(0.5, function()
+      awesome.emit_signal("change::theme")
+      awesome.emit_signal("change::icons")
+      return false
+    end)
   end)
 })
 
-local sep = maker.margins(maker.separtor(vertical, 1, 1, 0, colors.transparent), 20, 20, 15, 15)
-
-local box = { menu_bnt, sep, info_bnt, sep, mode_bnt }
+local box = { menu_bnt, info_bnt, mode_bnt }
 
 local main = wibox.widget {
   widget = wibox.container.background,
   bg = colors.transparent,
   shape = maker.radius(6),
   {
-    widget = maker.horizontal_padding_box(20, 20, 16, 16, box)
+    widget = maker.horizontal_padding_box(0, 0, 0, 0, box)
   }
 }
 
@@ -100,12 +83,12 @@ end)
 
 awesome.connect_signal("theme::icons", function(icons)
   if settings.theme == "dark" then
-    mode_bnt:set_image(icons.mode_dark)
+    mode_bnt:get_children_by_id("mode_bnt")[1]:set_image(icons.mode)
   else
-    mode_bnt:set_image(icons.mode)
+    mode_bnt:get_children_by_id("mode_bnt")[1]:set_image(icons.mode_dark)
   end
-  info_bnt:set_image(icons.infos)
-  menu_bnt:set_image(icons.menu)
+  menu_bnt:get_children_by_id("menu_bnt")[1]:set_image(icons.menu)
+  info_bnt:get_children_by_id("info_bnt")[1]:set_image(icons.infos)
 end)
 
 return main

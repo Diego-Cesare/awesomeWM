@@ -98,6 +98,26 @@ function maker.radius(radius)
 	end
 end
 
+maker.image = function(image, bg, padding, r, id)
+	return wibox.widget({
+		widget = wibox.container.margin,
+		margins = dpi(padding),
+		{
+			widget = wibox.container.background,
+			bg = bg,
+			shape = maker.radius(r),
+			{
+				widget = wibox.widget.imagebox,
+				valign = "center",
+				halign = "center",
+				id = id,
+				resize = true,
+				image = image,
+			}
+		}
+	})
+end
+
 maker.clock = function(color, font, args)
 	return wibox.widget({
 		widget = wibox.widget.textclock,
@@ -114,7 +134,7 @@ function maker.get_icon(client_name)
 		return nil
 	end
 
-	local icon_info = maker.gtk_theme:lookup_icon(client_name, 48, 0)
+	local icon_info = maker.gtk_theme:lookup_icon(client_name, 64, 0)
 	if icon_info then
 		local icon_path = icon_info:get_filename()
 		if icon_path then
@@ -125,38 +145,15 @@ function maker.get_icon(client_name)
 	return nil
 end
 
-function maker.get_gicon_path(gicon)
-	if not gicon then
+function maker.get_newicon_path(newicon)
+	if not newicon then
 		return nil
 	end
 
-	local info = maker.gtk_theme:lookup_by_gicon(gicon, 48, 0)
+	local info = maker.gtk_theme:lookup_by_newicon(newicon, 64, 0)
 	if info then
 		return info:get_filename()
 	end
-end
-
-function maker.gradient(x, y, to, center, close, color1, color2, color3, color4)
-	return gears.color.create_linear_pattern(
-		"0,0:"
-		.. x
-		.. ","
-		.. y
-		.. ":0,"
-		.. color1
-		.. ":0."
-		.. to
-		.. ","
-		.. color2
-		.. ":0."
-		.. center
-		.. ","
-		.. color3
-		.. ":0."
-		.. close
-		.. ","
-		.. color4
-	)
 end
 
 return maker
