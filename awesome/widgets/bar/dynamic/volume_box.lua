@@ -44,9 +44,8 @@ local level_description = wibox.widget({
     markup = maker.text(colors.fg, "Bold 10", "Nivel Max")
 })
 
-
 local update_volume_slider = function()
-    awful.spawn.easy_async("amixer sget Master", function(stdout)
+    awful.spawn.easy_async("pactl get-sink-volume @DEFAULT_SINK@", function(stdout)
         local volume = tonumber(string.match(stdout, "(%d?%d?%d)%%"))
         volume_slider.value = volume
         volume_perc:set_markup(maker.text(colors.fg .. "90", "Bold 10", volume .. "%"))
@@ -72,7 +71,7 @@ gears.timer({
 
 volume_slider:connect_signal("property::value", function(slider)
     local volume_level = math.floor(slider.value / 100 * 100)
-    awful.spawn("amixer set Master " .. volume_level .. "%")
+    awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ " .. volume_level .. "%")
 end)
 
 local volume_description = wibox.widget({

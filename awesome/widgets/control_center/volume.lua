@@ -15,7 +15,7 @@ local volume_slider = wibox.widget({
 })
 
 local update_volume_slider = function()
-	awful.spawn.easy_async("amixer sget Master", function(stdout)
+	awful.spawn.easy_async("pactl get-sink-volume @DEFAULT_SINK@", function(stdout)
 		local volume = tonumber(string.match(stdout, "(%d?%d?%d)%%"))
 		volume_slider.value = volume
 	end)
@@ -30,7 +30,7 @@ gears.timer({
 
 volume_slider:connect_signal("property::value", function(slider)
 	local volume_level = math.floor(slider.value / 100 * 100)
-	awful.spawn("amixer set Master " .. volume_level .. "%")
+	awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ " .. volume_level .. "%")
 end)
 
 local volume_icon = wibox.widget({
@@ -46,13 +46,13 @@ local volume_box = wibox.widget({
 	bg = colors.alt_bg,
 	shape = maker.radius(6),
 	{
-	layout = wibox.layout.align.horizontal,
-	expand = "none",
-	forced_width = dpi(200),
-	forced_height = dpi(46),
-	maker.margins(volume_icon, 10, 0, 8, 8),
-	nil,
-	maker.margins(volume_slider, 10, 10, 0, 0)
+		layout = wibox.layout.align.horizontal,
+		expand = "none",
+		forced_width = dpi(200),
+		forced_height = dpi(46),
+		maker.margins(volume_icon, 10, 0, 8, 8),
+		nil,
+		maker.margins(volume_slider, 10, 10, 0, 0)
 	}
 })
 
@@ -64,6 +64,6 @@ awesome.connect_signal("change::theme", function()
 	volume_box:set_bg(colors.alt_bg)
 	volume_slider:set_handle_color(colors.bg)
 	volume_slider:set_handle_border_color(colors.fg)
-  end)
+end)
 
 return volume_box
