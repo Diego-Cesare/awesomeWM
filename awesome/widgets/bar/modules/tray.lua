@@ -5,9 +5,11 @@ local switch_float = function()
     file:close()
 
     if content:match('settings.bar_floating%s*=%s*true') then
-        content = content:gsub('settings.bar_floating%s*=%s*true', 'settings.bar_floating = false')
+        content = content:gsub('settings.bar_floating%s*=%s*true',
+                               'settings.bar_floating = false')
     elseif content:match('settings.bar_floating%s*=%s*false') then
-        content = content:gsub('settings.bar_floating%s*=%s*false', 'settings.bar_floating = true')
+        content = content:gsub('settings.bar_floating%s*=%s*false',
+                               'settings.bar_floating = true')
     end
 
     file = io.open(settings_path, "w")
@@ -18,7 +20,7 @@ end
 local tray = wibox.widget {
     widget = wibox.container.background,
     maker.margins(wibox.widget.systray(), 10, 10, 15, 15),
-    visible = false,
+    visible = false
 }
 
 local systraytext = wibox.widget {
@@ -36,16 +38,15 @@ local systraytext = wibox.widget {
 local systraybutton = wibox.widget {
     systraytext,
     buttons = {
-        awful.button({}, 1, function()
-            awesome.emit_signal("widget::systray")
-        end)
+        awful.button({}, 1,
+                     function() awesome.emit_signal("widget::systray") end)
     },
     margins = dpi(0),
     widget = wibox.container.margin
 }
 
-
-local floating_bar = maker.image(icons.float_bar, colors.transparent, 1, 0, "float")
+local floating_bar = maker.image(icons.float_bar, colors.transparent, 1, 0,
+                                 "float")
 floating_bar:buttons({
     awful.button({}, 1, function()
         switch_float()
@@ -53,7 +54,7 @@ floating_bar:buttons({
     end)
 })
 
-local box_a = { floating_bar }
+local box_a = {floating_bar}
 
 local systray = wibox.widget {
     widget = wibox.container.background,
@@ -63,7 +64,7 @@ local systray = wibox.widget {
         layout = wibox.layout.fixed.horizontal,
         maker.margins(systraybutton, 5, 5, 0, 0),
         tray,
-        maker.horizontal_padding_box(10, 10, 15, 15, box_a),
+        maker.horizontal_padding_box(10, 10, 15, 15, box_a)
     }
 }
 

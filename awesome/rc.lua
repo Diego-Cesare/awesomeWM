@@ -17,7 +17,6 @@ require("awful.autofocus")
 require("awful.hotkeys_popup.keys")
 pcall(require, "luarocks.loader")
 
-
 -- █░█ █▀ █▀▀ █▀█   █▀▀ █ █░░ █▀▀ █▀
 -- █▄█ ▄█ ██▄ █▀▄   █▀░ █ █▄▄ ██▄ ▄█
 require("configs.init")
@@ -25,7 +24,6 @@ require("settings")
 require("utils.play")
 require("user.apps")
 require("utils.maker")
-
 _G.colors = require("theme.theme")
 _G.icons = require("theme.icons")
 _G.anime = require("utils.animations")
@@ -46,20 +44,20 @@ beautiful.border_normal = colors.bg
 beautiful.border_focus = colors.bg
 
 awesome.connect_signal("change::theme", function()
-    beautiful.bg_systray = colors.bg
+	beautiful.bg_systray = colors.bg
 end)
 beautiful.systray_icon_spacing = 10
 
 awesome.emit_signal("change::theme")
-awesome.connect_signal('theme::colors', function(colors)
-    _G.colors = colors
+awesome.connect_signal("theme::colors", function(colors)
+	_G.colors = colors
 end)
-awesome.connect_signal('theme::icons', function(icons)
-    _G.icons = icons
+awesome.connect_signal("theme::icons", function(icons)
+	_G.icons = icons
 end)
 
 collectgarbage("incremental", 150, 600, 0)
 gears.timer.start_new(60, function()
-    collectgarbage()
-    return true
+	collectgarbage()
+	return true
 end)

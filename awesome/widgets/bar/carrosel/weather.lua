@@ -1,10 +1,10 @@
 local weather_images = os.getenv("HOME") .. "/.config/awesome/theme/weather/"
 local days = maker.clock(colors.orange, " Bold 10", "%d, %B %Y")
 
-local api_key = "your api_key"
-local city_id = "your city_id"
+local api_key = "08c5cb1907e7d4f5bb5834dd0e4fd027"
+local city_id = "3461519"
 local cmd = "curl -s 'http://api.openweathermap.org/data/2.5/weather?id=" ..
-    city_id .. "&appid=" .. api_key .. "&units=metric'"
+                city_id .. "&appid=" .. api_key .. "&units=metric'"
 
 local function get_icon_path(icon_code)
     local icon_map = {
@@ -25,7 +25,7 @@ local function get_icon_path(icon_code)
         ["13d"] = "13d.svg",
         ["13n"] = "13n.svg",
         ["50d"] = "50d.svg",
-        ["50n"] = "50n.svg",
+        ["50n"] = "50n.svg"
     }
     return weather_images .. (icon_map[icon_code] or "unknown.png")
 end
@@ -33,7 +33,7 @@ end
 local city = wibox.widget({
     id = "city",
     widget = wibox.widget.textbox,
-    font = settings.font .. " Bold 12",
+    font = settings.font .. " Bold 12"
 })
 
 --[[local icon = wibox.widget({
@@ -47,24 +47,25 @@ local city = wibox.widget({
     opacity = 1,
 })]]
 
-local icon = maker.image(get_icon_path("unknown"), colors.transparent, 0, 0, "icon")
+local icon = maker.image(get_icon_path("unknown"), colors.transparent, 0, 0,
+                         "icon")
 
 local temperature = wibox.widget({
     id = "temperature",
     widget = wibox.widget.textbox,
-    font = settings.font .. " Bold 12",
+    font = settings.font .. " Bold 12"
 })
 
 local condition = wibox.widget({
     id = "condition",
     widget = wibox.widget.textbox,
-    font = settings.font .. " Regular 9",
+    font = settings.font .. " Regular 9"
 })
 
 local wind = wibox.widget({
     id = "wind",
     widget = wibox.widget.textbox,
-    font = settings.font .. " Regular 10",
+    font = settings.font .. " Regular 10"
 })
 
 local function update_icon(widget)
@@ -77,17 +78,19 @@ end
 local function update_temperature(widget)
     awful.spawn.easy_async_with_shell(cmd, function(stdout)
         local temp = string.match(stdout, '"temp":(%-?%d+%.?%d*)')
-        widget:get_children_by_id("temperature")[1]:set_text(math.ceil(temp) .. "°C")
-        widget:get_children_by_id("temperature")[1]:set_markup(
-            string.format("<span color='%s'>%s</span>", colors.fg,
-                widget:get_children_by_id("temperature")[1]:get_text())
-
-        )
+        widget:get_children_by_id("temperature")[1]:set_text(math.ceil(temp) ..
+                                                                 "°C")
+        widget:get_children_by_id("temperature")[1]:set_markup(string.format(
+                                                                   "<span color='%s'>%s</span>",
+                                                                   colors.fg,
+                                                                   widget:get_children_by_id(
+                                                                       "temperature")[1]:get_text()))
         awesome.connect_signal("change::theme", function(c)
-            widget:get_children_by_id("temperature")[1]:set_text(math.ceil(temp) .. "°C")
+            widget:get_children_by_id("temperature")[1]:set_text(
+                math.ceil(temp) .. "°C")
             widget:get_children_by_id("temperature")[1]:set_markup(
                 string.format("<span color='%s'>%s</span>", colors.fg,
-                    widget:get_children_by_id("temperature")[1]:get_text()))
+                              widget:get_children_by_id("temperature")[1]:get_text()))
         end)
     end)
 end
@@ -95,17 +98,21 @@ end
 local function update_condition(widget)
     awful.spawn.easy_async_with_shell(cmd, function(stdout)
         local description = string.match(stdout, '"description":"(.-)"')
-        description = description and description:gsub("^%l", string.upper) or "N/A"
+        description = description and description:gsub("^%l", string.upper) or
+                          "N/A"
         widget:get_children_by_id("condition")[1]:set_text(description)
-        widget:get_children_by_id("condition")[1]:set_markup(
-            string.format("<span color='%s'>%s</span>", colors.fg,
-                widget:get_children_by_id("condition")[1]:get_text())
-        )
+        widget:get_children_by_id("condition")[1]:set_markup(string.format(
+                                                                 "<span color='%s'>%s</span>",
+                                                                 colors.fg,
+                                                                 widget:get_children_by_id(
+                                                                     "condition")[1]:get_text()))
         awesome.connect_signal("change::theme", function(c)
             widget:get_children_by_id("condition")[1]:set_text(description)
-            widget:get_children_by_id("condition")[1]:set_markup(
-                string.format("<span color='%s'>%s</span>", colors.fg,
-                    widget:get_children_by_id("condition")[1]:get_text()))
+            widget:get_children_by_id("condition")[1]:set_markup(string.format(
+                                                                     "<span color='%s'>%s</span>",
+                                                                     colors.fg,
+                                                                     widget:get_children_by_id(
+                                                                         "condition")[1]:get_text()))
         end)
     end)
 end
@@ -113,15 +120,21 @@ end
 local function get_city(widget)
     awful.spawn.easy_async_with_shell(cmd, function(stdout)
         local description = string.match(stdout, '"name":"(.-)"')
-        description = description and description:gsub("^%l", string.upper) or "N/A"
+        description = description and description:gsub("^%l", string.upper) or
+                          "N/A"
         widget:get_children_by_id("city")[1]:set_text(description)
-        widget:get_children_by_id("city")[1]:set_markup(
-            string.format("<span color='%s'>%s</span>", colors.fg, widget:get_children_by_id("city")[1]:get_text())
-        )
+        widget:get_children_by_id("city")[1]:set_markup(string.format(
+                                                            "<span color='%s'>%s</span>",
+                                                            colors.fg,
+                                                            widget:get_children_by_id(
+                                                                "city")[1]:get_text()))
         awesome.connect_signal("change::theme", function(c)
             widget:get_children_by_id("city")[1]:set_text(description)
-            widget:get_children_by_id("city")[1]:set_markup(
-                string.format("<span color='%s'>%s</span>", colors.fg, widget:get_children_by_id("city")[1]:get_text()))
+            widget:get_children_by_id("city")[1]:set_markup(string.format(
+                                                                "<span color='%s'>%s</span>",
+                                                                colors.fg,
+                                                                widget:get_children_by_id(
+                                                                    "city")[1]:get_text()))
         end)
     end)
 end
@@ -140,7 +153,7 @@ gears.timer({
         update_temperature(temperature)
         update_condition(condition)
         get_city(city)
-    end,
+    end
 })
 
 local weather_info = wibox.widget({
@@ -150,14 +163,9 @@ local weather_info = wibox.widget({
     {
         layout = wibox.layout.fixed.vertical,
         expand = "none",
-        {
-            layout = wibox.layout.fixed.horizontal,
-            spacing = dpi(10),
-            city,
-            days,
-        },
+        {layout = wibox.layout.fixed.horizontal, spacing = dpi(10), city, days},
         nil,
-        condition,
+        condition
     }
 })
 
@@ -169,7 +177,7 @@ local weather_info_icon = wibox.widget({
         layout = wibox.layout.fixed.horizontal,
         spacing = dpi(10),
         icon,
-        temperature,
+        temperature
     }
 })
 
@@ -183,8 +191,8 @@ local main_weather = wibox.widget({
         expand = "none",
         maker.margins(weather_info, 10, 0, 0, 0),
         nil,
-        maker.margins(weather_info_icon, 0, 10, 0, 0),
-    },
+        maker.margins(weather_info_icon, 0, 10, 0, 0)
+    }
 })
 
 return main_weather
