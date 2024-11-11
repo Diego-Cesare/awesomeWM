@@ -1,6 +1,6 @@
 _G.settings = {}
 -- THEME
-settings.theme = "rosepine"
+settings.theme = "dark"
 -- TITLEBAR
 settings.title_position = "top"
 settings.title_size = dpi(60)

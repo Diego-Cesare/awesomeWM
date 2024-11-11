@@ -7,7 +7,7 @@ local function create_app_icon(app_name, app_command)
     }
 
     local button = wibox.widget {
-        {icon_widget, margins = 2, widget = wibox.container.margin},
+        { icon_widget, margins = 2, widget = wibox.container.margin },
         shape = maker.radius(6),
         widget = wibox.container.background
     }
@@ -35,38 +35,37 @@ local function create_app_icon(app_name, app_command)
 
     local function update_bg_color()
         awful.spawn.easy_async_with_shell("pgrep -f '" .. app_name .. "'",
-                                          function(stdout)
-            if stdout and stdout ~= "" then
-                button.bg = colors.alt_bg
-            else
-                button.bg = colors.transparent
-            end
-        end)
+            function(stdout)
+                if stdout and stdout ~= "" then
+                    button.bg = colors.alt_bg
+                else
+                    button.bg = colors.transparent
+                end
+            end)
     end
 
     update_bg_color()
 
-    gears.timer {timeout = 1, autostart = true, callback = update_bg_color}
+    gears.timer { timeout = 1, autostart = true, callback = update_bg_color }
 
-    return wibox.widget {button, margins = 10, widget = wibox.container.margin}
+    return wibox.widget { button, margins = 10, widget = wibox.container.margin }
 end
 
 itens = {
-    {name = "alacritty", command = "alacritty"},
-    {name = "code-oss", command = "code-oss"},
-    {name = "neovim", command = "alacritty -e nvim"},
-    {name = "nemo", command = "nemo"},
-    {name = "google-chrome", command = "google-chrome-stable"},
-    {name = "spotify", command = "spotify"}, {name = "kodi", command = "kodi"}
-
+    { name = "alacritty",     command = "alacritty" },
+    { name = "neovim",        command = "alacritty -e nvim" },
+    { name = "nemo",          command = "nemo" },
+    { name = "google-chrome", command = "google-chrome-stable" },
+    { name = "zed",           command = "zeditor" },
+    { name = "apostrophe",    command = "apostrophe" },
 }
 
-local app_box = wibox.widget {layout = wibox.layout.fixed.horizontal}
+local app_box = wibox.widget { layout = wibox.layout.fixed.horizontal }
 
 for _, app in ipairs(itens) do
     app_box:add(create_app_icon(app.name, app.command))
 end
 
-local main = wibox.widget {layout = wibox.layout.fixed.horizontal, app_box}
+local main = wibox.widget { layout = wibox.layout.fixed.horizontal, app_box }
 
 return main

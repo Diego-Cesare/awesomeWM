@@ -39,7 +39,7 @@ local task_open = wibox.widget {
     buttons = {
         awful.button({}, 1, function()
             awesome.emit_signal("widget::task")
-            dock.visible = not dock.visible
+            --dock.visible = not dock.visible
         end)
     }
 }

@@ -1,11 +1,13 @@
+wallpapers = require("widgets.wallpapers.wallpapers")
+
 local image_dir = os.getenv("HOME") .. "/Imagens"
 local wallpaper_path_file = gears.filesystem.get_cache_dir() ..
-                                "/current_wallpaper.txt"
+    "/current_wallpaper.txt"
 
 local function get_image_files()
     local files = {}
     local find_command = "find " .. image_dir ..
-                             " -type f \\( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \\)"
+        " -type f \\( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \\)"
     for file in io.popen(find_command):lines() do table.insert(files, file) end
     return files
 end
@@ -214,15 +216,15 @@ local main_papers = wibox.widget({
     }
 })
 
-local widgets_left = {wall, maker.margins(description_box, 10, 0, 0, 0)}
-local widgets_right = {main_papers}
+local widgets_left = { wall, maker.margins(description_box, 10, 0, 0, 0) }
+local widgets_right = { main_papers }
 
 local wallpapers = wibox.widget({
     layout = wibox.layout.align.horizontal,
     forced_width = dpi(330),
     visible = false,
     expand = "none",
-    {widget = maker.horizontal_padding_box(0, 0, 0, 0, widgets_left)},
+    { widget = maker.horizontal_padding_box(0, 0, 0, 0, widgets_left) },
     nil,
     {
         widget = wibox.container.place,

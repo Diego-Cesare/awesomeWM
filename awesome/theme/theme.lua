@@ -2,7 +2,7 @@ local function load_colors()
     local colors = {}
     if settings.theme == "dark" then
         colors = {
-            bg = "#14171f",
+            bg = "#050810",
             fg = "#f6f6f4",
             alt_bg = "#282a33",
             black = "#212121",
@@ -16,7 +16,7 @@ local function load_colors()
             purple = "#B2A4FF",
             cyan = "#AEE2FF",
             gray = "#c7c7c7",
-            transparent = "#00000000"
+            transparent = "#00000000",
         }
     elseif settings.theme == "light" then
         colors = {
@@ -34,7 +34,7 @@ local function load_colors()
             purple = "#B2A4FF",
             cyan = "#8CABFF",
             gray = "#c7c7c7",
-            transparent = "#ffffff00"
+            transparent = "#ffffff00",
         }
     elseif settings.theme == "gruvbox" then
         colors = {
@@ -52,7 +52,7 @@ local function load_colors()
             purple = "#b16286",
             cyan = "#8ec07c",
             gray = "#928374",
-            transparent = "#ffffff00"
+            transparent = "#ffffff00",
         }
     elseif settings.theme == "rosepine" then
         colors = {
@@ -70,7 +70,7 @@ local function load_colors()
             purple = "#b16286",
             cyan = "#ebbcba",
             gray = "#6e6a86",
-            transparent = "#ffffff00"
+            transparent = "#ffffff00",
         }
     end
 
@@ -79,7 +79,7 @@ end
 
 awesome.connect_signal("change::theme", function()
     local colors = load_colors()
-    awesome.emit_signal('theme::colors', colors)
+    awesome.emit_signal("theme::colors", colors)
 end)
 
 return load_colors()
