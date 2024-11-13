@@ -22,8 +22,8 @@ maker.button = function(icon, radius, app)
         {
             widget = wibox.container.margin,
             margins = {
-                top = dpi(10),
-                bottom = dpi(10),
+                top = dpi(5),
+                bottom = dpi(5),
                 left = dpi(10),
                 right = dpi(10)
             },
@@ -35,9 +35,9 @@ maker.button = function(icon, radius, app)
                 halign = "center",
                 resize = true,
                 id = "button",
-                buttons = {awful.button({}, 1, function()
+                buttons = { awful.button({}, 1, function()
                     awful.spawn(app)
-                end)}
+                end) }
             }
         }
     })
@@ -50,9 +50,9 @@ maker.hover = function(bnt, color_enter, color_out, border)
             bnt.border_width = dpi(border)
             bnt.border_color = beautiful.fg
         end), bnt:connect_signal("mouse::leave", function()
-            bnt.bg = color_out
-            bnt.border_width = dpi(0)
-        end)
+        bnt.bg = color_out
+        bnt.border_width = dpi(0)
+    end)
     }
 end
 
@@ -85,7 +85,7 @@ end
 
 function maker.text(color, font, text)
     return '<span color="' .. color .. '" font="' .. settings.font .. " " ..
-               font .. '">' .. text .. "</span>"
+        font .. '">' .. text .. "</span>"
 end
 
 function maker.radius(radius)
@@ -128,7 +128,7 @@ maker.apps = Gio.AppInfo.get_all()
 function maker.get_icon(client_name)
     if not client_name then return nil end
 
-    local icon_info = maker.gtk_theme:lookup_icon(client_name, 64, 0)
+    local icon_info = maker.gtk_theme:lookup_icon(client_name, 74, 32)
     if icon_info then
         local icon_path = icon_info:get_filename()
         if icon_path then return icon_path end
@@ -140,7 +140,7 @@ end
 function maker.get_newicon_path(newicon)
     if not newicon then return nil end
 
-    local info = maker.gtk_theme:lookup_by_newicon(newicon, 64, 0)
+    local info = maker.gtk_theme:lookup_by_newicon(newicon, 74, 32)
     if info then return info:get_filename() end
 end
 

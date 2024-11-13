@@ -6,11 +6,11 @@ local switch_theme = function()
 
     if content:match('settings.theme%s*=%s*"dark"') then
         content = content:gsub('settings.theme%s*=%s*".-"',
-                               'settings.theme = "light"')
+            'settings.theme = "light"')
         os.execute("sed -i 's/dark/light/g' ~/.config/alacritty/alacritty.toml")
     elseif content:match('settings.theme%s*=%s"light"') then
         content = content:gsub('settings.theme%s*=%s*".-"',
-                               'settings.theme = "dark"')
+            'settings.theme = "dark"')
         os.execute("sed -i 's/light/dark/g' ~/.config/alacritty/alacritty.toml")
     end
 
@@ -27,20 +27,19 @@ local function update_mode_icon()
     end
 end
 
-local menu_bnt = maker.image(icons.menu, colors.transparent, 16, 0, "menu_bnt")
-local info_bnt = maker.image(icons.infos, colors.transparent, 16, 0, "info_bnt")
-local mode_bnt = maker.image(update_mode_icon(), colors.transparent, 16, 0,
-                             "mode_bnt")
+local menu_bnt = maker.image(icons.menu, colors.transparent, 11, 0, "menu_bnt")
+local info_bnt = maker.image(icons.infos, colors.transparent, 11, 0, "info_bnt")
+local mode_bnt = maker.image(update_mode_icon(), colors.transparent, 11, 0, "mode_bnt")
 
-menu_bnt:buttons({awful.button(nil, 1, function() launcher:toggle() end)})
+menu_bnt:buttons({ awful.button(nil, 1, function() launcher:toggle() end) })
 
 info_bnt:buttons({
     awful.button(nil, 1, function()
         if not info_center.visible then
             info_center.visible = true
-            anime.move_x(info_center, 10, 80, "left")
+            anime.move_x(info_center, 10, 90, "left")
         else
-            anime.move_x_out(info_center, 10, 80, "right")
+            anime.move_x_out(info_center, 10, 90, "right")
             gears.timer.start_new(0.9, function()
                 info_center.visible = false
                 return false
@@ -65,17 +64,17 @@ mode_bnt:buttons({
     end)
 })
 
-local box = {menu_bnt, info_bnt, mode_bnt}
+local box = { menu_bnt, info_bnt, mode_bnt }
 
 local main = wibox.widget {
     widget = wibox.container.background,
     bg = colors.transparent,
     shape = maker.radius(6),
-    {widget = maker.horizontal_padding_box(0, 0, 0, 0, box)}
+    { widget = maker.horizontal_padding_box(10, 20, 0, 0, box) }
 }
 
 awesome.connect_signal("change::theme",
-                       function() main:set_bg(colors.transparent) end)
+    function() main:set_bg(colors.transparent) end)
 
 awesome.connect_signal("theme::icons", function(icons)
     if settings.theme == "dark" then

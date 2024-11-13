@@ -31,7 +31,7 @@ local song_artist = wibox.widget({
 })
 
 awesome.connect_signal("perc::metadata",
-                       function(percent) music_graph.value = percent end)
+    function(percent) music_graph.value = percent end)
 
 awesome.connect_signal("play::metadata", function(title, artist)
     song_info:set_markup(maker.text(colors.fg, "Bold 10", title))
@@ -42,17 +42,17 @@ awesome.connect_signal("play::metadata", function(title, artist)
     end)
     if artist == "Artist" then
         song_description:set_markup(maker.text(colors.fg, "Bold 10",
-                                               "Parado agora"))
+            "Parado agora"))
     else
         song_description:set_markup(maker.text(colors.orange, "Bold 10",
-                                               "Tocando agora"))
+            "Tocando agora"))
     end
 end)
 
 player_img:buttons(gears.table.join(awful.button({}, 1, nil, function(s)
     if not music_player.visible then
         music_player.visible = true
-        anime.move_x(music_player, 1410, 320, "right")
+        anime.move_x(music_player, 1410, 335, "right")
     else
         anime.move_x_out(music_player, 1420, 320, "left")
         gears.timer.start_new(0.9, function()
@@ -73,15 +73,15 @@ local main_scrool = wibox.widget({
     }
 })
 
-local widgets_left = {player_img, maker.margins(main_scrool, 10, 0, 0, 0)}
-local widgets_right = {song_description, anime.scroll(song_artist, 100, 30, 30)}
+local widgets_left = { player_img, maker.margins(main_scrool, 10, 0, 0, 0) }
+local widgets_right = { song_description, anime.scroll(song_artist, 100, 30, 30) }
 
 local music_widget = wibox.widget({
     layout = wibox.layout.align.horizontal,
     forced_width = dpi(330),
     expand = "none",
     visible = false,
-    {widget = maker.horizontal_padding_box(0, 0, 0, 0, widgets_left)},
+    { widget = maker.horizontal_padding_box(0, 0, 0, 0, widgets_left) },
     nil,
     {
         widget = wibox.container.place,

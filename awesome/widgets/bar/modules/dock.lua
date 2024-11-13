@@ -48,12 +48,13 @@ local function create_app_icon(app_name, app_command)
 
     gears.timer { timeout = 1, autostart = true, callback = update_bg_color }
 
-    return wibox.widget { button, margins = 10, widget = wibox.container.margin }
+    return wibox.widget { button, margins = 5, widget = wibox.container.margin }
 end
 
 itens = {
     { name = "alacritty",     command = "alacritty" },
     { name = "neovim",        command = "alacritty -e nvim" },
+    { name = "theme-config",  command = "lxappearance" },
     { name = "nemo",          command = "nemo" },
     { name = "google-chrome", command = "google-chrome-stable" },
     { name = "zed",           command = "zeditor" },

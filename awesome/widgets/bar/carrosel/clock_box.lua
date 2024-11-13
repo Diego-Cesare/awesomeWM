@@ -1,18 +1,18 @@
-local hours = maker.clock(colors.fg, "Bold 11", "%H:%M")
-local weeks = maker.clock(colors.orange, "Bold 11", "%A,")
-local days = maker.clock(colors.fg, "Bold 10", "%d")
-local months = maker.clock(colors.fg, "Bold 10", "%B")
+local hours = maker.clock(colors.orange, "Bold 11", "%H:%M")
+local weeks = maker.clock(colors.fg, "Bold 11", "%A,")
+local days = maker.clock(colors.fg, "Bold 11", "%d")
+local months = maker.clock(colors.fg, "Bold 11", "%B")
 
 local main_clock = wibox.widget({
     widget = wibox.container.place,
     align = "center",
     {
         widget = wibox.container.margin,
-        margins = {right = dpi(0)},
+        margins = { right = dpi(0) },
         {
             layout = wibox.layout.align.vertical,
             expand = "none",
-            {layout = wibox.layout.fixed.horizontal, hours},
+            { layout = wibox.layout.fixed.horizontal, hours },
             nil,
             {
                 layout = wibox.layout.fixed.horizontal,
@@ -25,8 +25,8 @@ local main_clock = wibox.widget({
     }
 })
 awesome.connect_signal("change::theme", function()
-    hours.format = maker.text(colors.fg, "Bold 11", "%H:%M")
-    days.format = maker.text(colors.fg, "Bold 10", "%d")
-    months.format = maker.text(colors.fg, "Bold 10", "%B")
+    hours.format = maker.text(colors.red, "Bold 12", "%H:%M")
+    days.format = maker.text(colors.fg, "Bold 11", "%d")
+    months.format = maker.text(colors.fg, "Bold 11", "%B")
 end)
 return main_clock

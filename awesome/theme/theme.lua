@@ -2,9 +2,9 @@ local function load_colors()
     local colors = {}
     if settings.theme == "dark" then
         colors = {
-            bg = "#050810",
+            bg = "#050810" .. "A0",
             fg = "#f6f6f4",
-            alt_bg = "#282a33",
+            alt_bg = "#23262E" .. "A0",
             black = "#212121",
             white = "#f6f6f4",
             red = "#e78895",
@@ -20,17 +20,17 @@ local function load_colors()
         }
     elseif settings.theme == "light" then
         colors = {
-            bg = "#f8f9fa",
+            bg = "#f8f9fa" .. "A0",
             fg = "#414868",
-            alt_bg = "#ffffff",
+            alt_bg = "#ffffff" .. "A0",
             black = "#e1e2e7",
             white = "#212128",
-            red = "#e78895",
-            green = "#57A6A1",
+            red = "#B03052",
+            green = "#219B9D",
             yellow = "#dfb25c",
-            orange = "#F97300",
+            orange = "#FC8F54",
             blue = "#1679AB",
-            magenta = "#FF8DC7",
+            magenta = "#CC2B52",
             purple = "#B2A4FF",
             cyan = "#8CABFF",
             gray = "#c7c7c7",

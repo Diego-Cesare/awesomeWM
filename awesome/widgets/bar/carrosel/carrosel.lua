@@ -20,10 +20,10 @@ local function animate_widget(widget, target_opacity, callback)
 
         if current_opacity < target_opacity then
             current_opacity = math.min(current_opacity + alpha_step,
-                                       target_opacity)
+                target_opacity)
         else
             current_opacity = math.max(current_opacity - alpha_step,
-                                       target_opacity)
+                target_opacity)
         end
 
         widget.opacity = current_opacity
@@ -70,17 +70,17 @@ gears.timer {
     callback = carrosel
 }
 
-local widgets_box = {userbox, weatherbox}
+local widgets_box = { userbox, weatherbox }
 
 local main = wibox.widget({
     widget = wibox.container.background,
     forced_width = dpi(350),
     bg = colors.transparent,
     shape = maker.radius(6),
-    {widget = maker.horizontal_padding_box(20, 20, 10, 10, widgets_box)}
+    { widget = maker.horizontal_padding_box(20, 20, 5, 5, widgets_box) }
 })
 
 awesome.connect_signal("theme::colors",
-                       function(colors) main:set_bg(colors.transparent) end)
+    function(colors) main:set_bg(colors.transparent) end)
 
 return main
