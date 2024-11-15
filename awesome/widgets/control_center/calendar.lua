@@ -9,7 +9,7 @@ local day = wibox.widget({
     widget = wibox.widget.textclock,
     valign = "center",
     halign = "center",
-    format = maker.text(colors.blue, "Bold 40", "%d"),
+    format = maker.text(colors.blue, "Bold 60", "%d"),
 })
 
 -- Função para criar widgets de texto com tamanho de fonte 7
@@ -18,7 +18,7 @@ local function createTextWidget(text, color)
         markup = color and ("<span color='" .. color .. "'>" .. text .. "</span>") or text,
         align = "center",
         valign = "center",
-        font = "Regular 7",
+        font = "Regular 11",
         widget = wibox.widget.textbox,
     })
 end
@@ -30,7 +30,7 @@ local function createTodayWidget(day)
             createTextWidget(day, colors.bg),
             widget = wibox.container.place,
         },
-        bg = colors.blue,      -- Cor de fundo azul
+        bg = colors.blue,           -- Cor de fundo azul
         shape = gears.shape.circle, -- Borda com raio de 100%
         widget = wibox.container.background,
         forced_width = dpi(20),     -- Largura fixa para o círculo
@@ -82,7 +82,7 @@ local function up_calendar()
     local monthView = wibox.widget({
         --homogeneous = true,
         --expand = true,
-        spacing = 0, -- Define espaçamento zero entre as colunas
+        spacing              = 0, -- Define espaçamento zero entre as colunas
         minimum_column_width = 30,
         minimum_row_height   = 0,
         forced_num_cols      = 7,
@@ -90,7 +90,7 @@ local function up_calendar()
     })
 
     local current_date = os.date("*t")
-    
+
     gears.timer({
         timeout = 60,
         call_now = true,
@@ -105,7 +105,7 @@ local function up_calendar()
         widget = wibox.container.background,
         bg = colors.alt_bg,
         fg = colors.fg,
-        forced_height = dpi(160),
+        forced_height = dpi(250),
         shape = maker.radius(6),
         {
             widget = wibox.container.place,
@@ -119,12 +119,12 @@ local function up_calendar()
                     widget = wibox.container.place,
                     halign = "center",
                     valign = "center",
-                {
-                    layout = wibox.layout.fixed.vertical,
-                    maker.margins(week, 20, 10, 10, 0),
-                    maker.margins(day, 20, 10, 0, 0)
+                    {
+                        layout = wibox.layout.fixed.vertical,
+                        maker.margins(week, 20, 10, 10, 0),
+                        maker.margins(day, 20, 10, 0, 0)
+                    },
                 },
-            },
                 nil,
                 {
                     maker.margins(monthView, 20, 0, 20, 20),
@@ -161,9 +161,9 @@ local function up_calendar()
 end
 
 awesome.connect_signal("change::theme", function()
-	widget:set_bg(colors.alt_bg)
-	widget:set_fg(colors.fg)
-    week.format = maker.text(colors.fg, "Regular 10", "%B, %Y")
+    widget:set_bg(colors.alt_bg)
+    widget:set_fg(colors.fg)
+    week.format = maker.text(colors.fg, "Regular 11", "%B, %Y")
 end)
 
 return up_calendar()

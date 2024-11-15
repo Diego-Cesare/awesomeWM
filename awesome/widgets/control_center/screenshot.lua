@@ -3,7 +3,7 @@ local shot_now = wibox.widget({
     widget = wibox.container.background,
     bg = colors.magenta .. "50",
     fg = colors.fg,
-    forced_width = dpi(200),
+    forced_width = dpi(225),
     shape = maker.radius(6),
     {
         widget = wibox.container.margin,
@@ -33,7 +33,7 @@ local shot_area = wibox.widget({
     widget = wibox.container.background,
     bg = colors.alt_bg .. "50",
     fg = colors.fg,
-    forced_width = dpi(200),
+    forced_width = dpi(225),
     shape = maker.radius(6),
     {
         widget = wibox.container.margin,
@@ -62,6 +62,7 @@ local shot_time = wibox.widget({
     widget = wibox.container.background,
     bg = colors.alt_bg .. "50",
     fg = colors.fg,
+    forced_width = dpi(225),
     shape = maker.radius(6),
     {
         widget = wibox.container.margin,

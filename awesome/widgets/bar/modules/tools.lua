@@ -37,9 +37,9 @@ info_bnt:buttons({
     awful.button(nil, 1, function()
         if not info_center.visible then
             info_center.visible = true
-            anime.move_x(info_center, 10, 90, "left")
+            anime.move_x(info_center, 10, 40, "left")
         else
-            anime.move_x_out(info_center, 10, 90, "right")
+            anime.move_x_out(info_center, 10, 40, "right")
             gears.timer.start_new(0.9, function()
                 info_center.visible = false
                 return false

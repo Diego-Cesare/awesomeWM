@@ -113,7 +113,7 @@ local clock_widget = wibox.widget {
         expand = "none",
         forced_width = dpi(150),
         forced_height = dpi(200),
-        maker.margins(clock, 0, 0, 20, 10),
+        maker.margins(clock, 0, 0, 20, 0),
         nil,
         {
             widget = wibox.widget.base.make_widget,
