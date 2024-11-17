@@ -20,7 +20,7 @@ local music_graph = wibox.widget({
 
 local song_description = wibox.widget({
     widget = wibox.widget.textbox,
-    markup = maker.text(colors.orange, "Bold 10", "Tocando agora"),
+    markup = maker.text(colors.orange, "Regular 10", "Tocando agora"),
     halign = "right",
     valign = "center"
 })
@@ -34,27 +34,34 @@ awesome.connect_signal("perc::metadata",
     function(percent) music_graph.value = percent end)
 
 awesome.connect_signal("play::metadata", function(title, artist)
-    song_info:set_markup(maker.text(colors.fg, "Bold 10", title))
+    song_info:set_markup(maker.text(colors.fg, "Regular 10", title))
     song_artist:set_markup(maker.text(colors.fg, "Regular 9", artist))
     awesome.connect_signal("theme::colors", function(colors)
-        song_info:set_markup(maker.text(colors.fg, "Bold 10", title))
+        song_info:set_markup(maker.text(colors.fg, "Regular 10", title))
         song_artist:set_markup(maker.text(colors.fg, "Regular 9", artist))
     end)
     if artist == "Artist" then
-        song_description:set_markup(maker.text(colors.fg, "Bold 10",
+        song_description:set_markup(maker.text(colors.fg, "Regular 10",
             "Parado agora"))
     else
-        song_description:set_markup(maker.text(colors.orange, "Bold 10",
+        song_description:set_markup(maker.text(colors.orange, "Regular 10",
             "Tocando agora"))
     end
 end)
 
+local function anime_move_open()
+    if settings.bar_position == "top" then
+        return anime.move_x(music_player, 1410, -335, "right")
+    else
+        return anime.move_x(music_player, 1410, 335, "right")
+    end
+end
+
 player_img:buttons(gears.table.join(awful.button({}, 1, nil, function(s)
     if not music_player.visible then
         music_player.visible = true
-        anime.move_x(music_player, 1410, 335, "right")
+        anime_move_open()
     else
-        anime.move_x_out(music_player, 1420, 320, "left")
         gears.timer.start_new(0.9, function()
             music_player.visible = false
             return false

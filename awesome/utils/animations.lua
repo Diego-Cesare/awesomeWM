@@ -1,5 +1,6 @@
-anime = {}
+anime = {} -- Criar um objeto para guardar as animações
 
+-- Função para criar um scroll horizontal
 anime.scroll = function(widget, size, speed, fps)
     return wibox.widget({
         widget,
@@ -12,6 +13,7 @@ anime.scroll = function(widget, size, speed, fps)
     })
 end
 
+-- Função para abrir um widget
 function anime.open(widget, time, in_size, fin_size)
     local timed = rubato.timed({
         duration = time,
@@ -25,6 +27,7 @@ function anime.open(widget, time, in_size, fin_size)
     timed.target = fin_size
 end
 
+-- Função para fechar um widget
 function anime.close(widget, time, in_size, fin_size)
     local timed = rubato.timed({
         duration = time,
@@ -38,6 +41,7 @@ function anime.close(widget, time, in_size, fin_size)
     timed.target = in_size
 end
 
+-- Função para mover um widget
 function anime.move(widget, final)
     local screen_geometry = widget.screen.geometry
     local target_x = (screen_geometry.width - widget:geometry().width) / 2
@@ -60,6 +64,7 @@ function anime.move(widget, final)
     slide.target = target_y
 end
 
+-- Função para mover um widget para cima
 function anime.move_up(widget, start_y, end_y)
     local screen_geometry = widget.screen.geometry
     local widget_geometry = widget:geometry()
@@ -84,6 +89,7 @@ function anime.move_up(widget, start_y, end_y)
     slide.target = end_y
 end
 
+-- Função para mover um widget para baixo
 function anime.move_down(widget, from)
     local screen_geometry = widget.screen.geometry
     local widget_geometry = widget:geometry()
@@ -108,6 +114,7 @@ function anime.move_down(widget, from)
     slide.target = off_screen_y
 end
 
+-- Função para mover um widget horizontalmente
 function anime.move_x(widget, final_x, final_y, direction)
     local screen_geometry = widget.screen.geometry
     local target_y = (screen_geometry.height - widget:geometry().height) / 2 +
@@ -137,6 +144,7 @@ function anime.move_x(widget, final_x, final_y, direction)
     slide.target = final_x
 end
 
+-- Função para mover um widget horizontalmente para fora
 function anime.move_x_out(widget, final_x, final_y, direction)
     local screen_geometry = widget.screen.geometry
     local start_x = widget:geometry().x -- Posição atual do widget
@@ -164,4 +172,4 @@ function anime.move_x_out(widget, final_x, final_y, direction)
     slide.target = final_x - end_x
 end
 
-return anime
+return anime -- Retornar a animações

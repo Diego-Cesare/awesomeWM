@@ -1,5 +1,5 @@
 local weather_images = os.getenv("HOME") .. "/.config/awesome/theme/weather/"
-local days = maker.clock(colors.green, " Bold 11", "%d, %B %Y")
+local days = maker.clock(colors.fg, "Regular 9", "%A, %d %B")
 
 local api_key = "08c5cb1907e7d4f5bb5834dd0e4fd027"
 local city_id = "3461519"
@@ -31,21 +31,17 @@ local function get_icon_path(icon_code)
 end
 
 local city = wibox.widget({
-    id = "city",
-    widget = wibox.widget.textbox,
-    font = settings.font .. " Bold 11"
+    widget = wibox.container.background,
+    bg = colors.red,
+    shape = maker.radius(20),
+    forced_width = dpi(50),
+    {
+        id = "city",
+        widget = wibox.widget.textbox,
+        align = "center",
+        font = settings.font .. " Regular 12"
+    }
 })
-
---[[local icon = wibox.widget({
-    valign = "center",
-    halign = "center",
-    id = "icon",
-    widget = wibox.widget.imagebox,
-    image = get_icon_path("unknown"),
-    forced_height = dpi(80),
-    resize = true,
-    opacity = 1,
-})]]
 
 local icon = maker.image(get_icon_path("unknown"), colors.transparent, 0, 0,
     "icon")
@@ -53,7 +49,7 @@ local icon = maker.image(get_icon_path("unknown"), colors.transparent, 0, 0,
 local temperature = wibox.widget({
     id = "temperature",
     widget = wibox.widget.textbox,
-    font = settings.font .. " Bold 12"
+    font = settings.font .. " Regular 12"
 })
 
 local condition = wibox.widget({
@@ -159,11 +155,16 @@ gears.timer({
 local weather_info = wibox.widget({
     widget = wibox.container.place,
     halign = "left",
-    valign = "center",
     {
         layout = wibox.layout.fixed.vertical,
         expand = "none",
-        { layout = wibox.layout.fixed.horizontal, spacing = dpi(10), city, days },
+        {
+            layout = wibox.layout.fixed.horizontal,
+            spacing = dpi(10),
+            valign = "bottom",
+            city,
+            days
+        },
         nil,
         condition
     }
@@ -194,5 +195,9 @@ local main_weather = wibox.widget({
         maker.margins(weather_info_icon, 0, 10, 0, 0)
     }
 })
+
+awesome.connect_signal("change::theme", function()
+    days.format = maker.text(colors.fg, "Regular 9", "%A, %d %B")
+end)
 
 return main_weather

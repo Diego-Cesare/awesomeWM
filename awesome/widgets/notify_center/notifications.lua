@@ -159,7 +159,6 @@ local create_notif = function(icon, n, width)
     end)
 
     return box
-
 end
 notifs_container:buttons(gears.table.join(
     awful.button({}, 4, nil, function()
@@ -214,6 +213,14 @@ local notifs = wibox.widget({
     layout = wibox.layout.fixed.vertical,
 })
 
+local function notify_placement(c)
+    if settings.bar_position == "top" then
+        return awful.placement.top_right(c, { honor_workarea = true, margins = 20 })
+    else
+        return awful.placement.bottom_right(c, { honor_workarea = true, margins = 20 })
+    end
+end
+
 local notify_box = awful.popup({
     widget = {
         widget = wibox.container.margin,
@@ -225,14 +232,15 @@ local notify_box = awful.popup({
             notifs,
         },
     },
-    placement = function(c)
-        awful.placement.bottom_right(c, { honor_workarea = true, margins = 10 })
-    end,
     ontop = true,
     visible = false,
     bg = colors.bg,
     type = "dock",
     shape = maker.radius(10),
+    placement = function(c)
+        notify_placement(c)
+        --awful.placement.top_right(c, { honor_workarea = true, margins = 20 })
+    end
 })
 
 awesome.connect_signal("theme::colors", function(colors)
@@ -242,7 +250,7 @@ awesome.connect_signal("theme::colors", function(colors)
 end)
 
 awesome.connect_signal("theme::icons", function(icons)
-        notifs_clear.image = icons.clear
-  end)
+    notifs_clear.image = icons.clear
+end)
 
 return notify_box

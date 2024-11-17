@@ -1,6 +1,6 @@
-local function load_colors()
-    local colors = {}
-    if settings.theme == "dark" then
+local function load_colors()         -- Carregar as cores do tema
+    local colors = {}                -- Criar um objeto para guardar as cores
+    if settings.theme == "dark" then -- Se o tema for dark
         colors = {
             bg = "#050810" .. "A0",
             fg = "#f6f6f4",
@@ -8,35 +8,35 @@ local function load_colors()
             black = "#212121",
             white = "#f6f6f4",
             red = "#e78895",
-            green = "#afd198",
+            green = "#8ABFA3",
             yellow = "#dfb25c",
-            orange = "#FF8787",
-            blue = "#1679AB",
-            magenta = "#FF8DC7",
+            orange = "#FFDBB5",
+            blue = "#7EACB5",
+            magenta = "#E7CCCC",
             purple = "#B2A4FF",
             cyan = "#AEE2FF",
             gray = "#c7c7c7",
             transparent = "#00000000",
         }
-    elseif settings.theme == "light" then
+    elseif settings.theme == "light" then -- Se o tema for light
         colors = {
-            bg = "#f8f9fa" .. "A0",
+            bg = "#FFFFFF" .. "A0",
             fg = "#414868",
-            alt_bg = "#ffffff" .. "A0",
+            alt_bg = "#F5F5F5" .. "A0",
             black = "#e1e2e7",
             white = "#212128",
-            red = "#B03052",
-            green = "#219B9D",
+            red = "#FF8A8A",
+            green = "#658147",
             yellow = "#dfb25c",
-            orange = "#FC8F54",
-            blue = "#1679AB",
-            magenta = "#CC2B52",
+            orange = "#FF7777",
+            blue = "#667BC6",
+            magenta = "#DA7297",
             purple = "#B2A4FF",
             cyan = "#8CABFF",
             gray = "#c7c7c7",
             transparent = "#ffffff00",
         }
-    elseif settings.theme == "gruvbox" then
+    elseif settings.theme == "gruvbox" then -- Se o tema for gruvbox
         colors = {
             bg = "#282828",
             fg = "#eddbb2",
@@ -54,7 +54,7 @@ local function load_colors()
             gray = "#928374",
             transparent = "#ffffff00",
         }
-    elseif settings.theme == "rosepine" then
+    elseif settings.theme == "rosepine" then -- Se o tema for rosepine
         colors = {
             bg = "#191724",
             fg = "#e0def4",
@@ -77,9 +77,9 @@ local function load_colors()
     return colors
 end
 
-awesome.connect_signal("change::theme", function()
-    local colors = load_colors()
-    awesome.emit_signal("theme::colors", colors)
+awesome.connect_signal("change::theme", function() -- Quando o tema mudar
+    local colors = load_colors()                   -- Carregar as cores do tema
+    awesome.emit_signal("theme::colors", colors)   -- Emitir a cor do tema
 end)
 
-return load_colors()
+return load_colors() -- Retornar as cores do tema

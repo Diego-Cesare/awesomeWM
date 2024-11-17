@@ -1,14 +1,14 @@
-local notifications = {}
+local notifications = {}               -- Criar um objeto para guardar as funções
 
-notifications.silent = false
+notifications.silent = false           -- Definir o modo silencioso
 
-function notifications:toggle_silent()
-    self.silent = not self.silent
-    if self.silent then
-        naughty.suspend(self.silent)
-    else
-        naughty.resume()
+function notifications:toggle_silent() -- Função para alternar o modo silencioso
+    self.silent = not self.silent      -- Inverter o valor do modo silencioso
+    if self.silent then                -- Se o modo silencioso estiver ativo
+        naughty.suspend(self.silent)   -- Suspender as notificações
+    else                               -- Se o modo silencioso estiver desativado
+        naughty.resume()               -- Reativar as notificações
     end
 end
 
-return notifications
+return notifications -- Retornar as funções

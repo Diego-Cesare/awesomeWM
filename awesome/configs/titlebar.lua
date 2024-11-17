@@ -19,7 +19,7 @@ client.connect_signal("request::titlebars", function(c)
         resize = true,
         forced_width = dpi(icon_size),
         buttons = awful.button({}, 1,
-                               function() c.maximized = not c.maximized end)
+            function() c.maximized = not c.maximized end)
     })
 
     local minimize_button = wibox.widget({
@@ -36,10 +36,10 @@ client.connect_signal("request::titlebars", function(c)
 
     local buttons = {
         awful.button({}, 1, function()
-            c:activate{context = "titlebar", action = "mouse_move"}
+            c:activate { context = "titlebar", action = "mouse_move" }
         end), awful.button({}, 3, function()
-            c:activate{context = "titlebar", action = "mouse_resize"}
-        end)
+        c:activate { context = "titlebar", action = "mouse_resize" }
+    end)
     }
 
     local actions = wibox.widget {
@@ -60,7 +60,7 @@ client.connect_signal("request::titlebars", function(c)
             }
         }
     }
-    local widgets_box = {maker.margins(actions, 10, 10, 10, 10)}
+    local widgets_box = { maker.margins(actions, 10, 10, 10, 10) }
 
     local titlebuttons = wibox.widget {
         widget = wibox.container.background,
@@ -68,7 +68,7 @@ client.connect_signal("request::titlebars", function(c)
         {
             layout = wibox.layout.align.horizontal,
             nil,
-            {buttons = buttons, widget = wibox.container.background},
+            { buttons = buttons, widget = wibox.container.background },
             {
                 widget = wibox.container.background,
                 maker.horizontal_padding_box(0, 0, 0, 0, widgets_box)
@@ -82,7 +82,7 @@ client.connect_signal("request::titlebars", function(c)
         bg = colors.bg
     })
 
-    titlebar:setup{widget = maker.margins(titlebuttons, 0, 0, 0, 0)}
+    titlebar:setup { widget = maker.margins(titlebuttons, 0, 0, 0, 0) }
 
     awesome.connect_signal("theme::colors", function()
         titlebuttons:set_bg(colors.bg)

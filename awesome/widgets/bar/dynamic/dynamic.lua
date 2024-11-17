@@ -27,7 +27,7 @@ local dynamic = wibox.widget({
     forced_width = dpi(330),
     bg = colors.transparent,
     shape = maker.radius(6),
-    { widget = maker.horizontal_padding_box(20, 20, 5, 5, widgets_box) }
+    { widget = maker.horizontal_padding_box(20, 20, 0, 0, widgets_box) }
 })
 
 naughty.connect_signal("request::display", function(n)

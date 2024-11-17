@@ -19,7 +19,7 @@ end
 
 local tray = wibox.widget {
     widget = wibox.container.background,
-    maker.margins(wibox.widget.systray(), 10, 10, 5, 5),
+    maker.margins(wibox.widget.systray(), dpi(10), dpi(10), dpi(5), dpi(5)),
     visible = false
 }
 
@@ -45,8 +45,7 @@ local systraybutton = wibox.widget {
     widget = wibox.container.margin
 }
 
-local floating_bar = maker.image(icons.float_bar, colors.transparent, 1, 0,
-    "float")
+local floating_bar = maker.image(icons.float_bar, colors.transparent, 5, 0, "float")
 floating_bar:buttons({
     awful.button({}, 1, function()
         switch_float()
@@ -62,9 +61,9 @@ local systray = wibox.widget {
     shape = maker.radius(6),
     {
         layout = wibox.layout.fixed.horizontal,
-        maker.margins(systraybutton, 5, 5, 0, 0),
+        maker.margins(systraybutton, dpi(5), dpi(5), dpi(0), dpi(0)),
         tray,
-        maker.horizontal_padding_box(10, 10, 10, 10, box_a)
+        maker.horizontal_padding_box(dpi(10), dpi(10), dpi(0), dpi(0), box_a)
     }
 }
 

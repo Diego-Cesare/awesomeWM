@@ -23,12 +23,12 @@ local mini_icon = maker.image(icons.user, colors.transparent, 0, 50, "icon_user"
 
 local notification_count_widget = wibox.widget {
     widget = wibox.widget.textbox,
-    markup = maker.text(colors.green, "Bold 10", "0")
+    markup = maker.text(colors.green, "Regular 10", "0")
 }
 
 local notification_app_name_widget = wibox.widget {
     widget = wibox.widget.textbox,
-    markup = maker.text(colors.fg, "Bold 10", " Notificações")
+    markup = maker.text(colors.fg, "Regular 10", " Notificações")
 }
 
 local notification_app_msg_widget = wibox.widget {
@@ -40,13 +40,13 @@ local notification_app_msg_widget = wibox.widget {
 local function update_notification_widgets(n)
     mini_icon:get_children_by_id("icon_user")[1].image = n.icon or icons.user
     notification_count = notification_count + 1
-    notification_count_widget.markup = maker.text(colors.green, "Bold 10",
+    notification_count_widget.markup = maker.text(colors.green, "Regular 10",
         tostring(notification_count) ..
         " ")
     notification_app_msg_widget.markup =
-        maker.text(colors.green, "Bold 10", n.message)
+        maker.text(colors.green, "Regular 10", n.message)
     notification_app_name_widget.markup =
-        maker.text(colors.fg, "Bold 10", n.app_name or "Desconhecido")
+        maker.text(colors.fg, "Regular 10", n.app_name or "Desconhecido")
 end
 
 naughty.connect_signal("request::display", function(n)
@@ -68,18 +68,25 @@ local notify_description = wibox.widget({
 local function reset_notification_widgets()
     mini_icon:get_children_by_id("icon_user")[1].image = icons.user
     notification_count = 0
-    notification_count_widget.markup = maker.text(colors.green, "Bold 10", "0")
+    notification_count_widget.markup = maker.text(colors.green, "Regular 10", "0")
     notification_app_msg_widget.markup = maker.text(colors.green, "Regular 9", "Remetente")
-    notification_app_name_widget.markup = maker.text(colors.fg, "Bold 10", " Notificações")
+    notification_app_name_widget.markup = maker.text(colors.fg, "Regular 10", " Notificações")
+end
+
+local function anime_move_open()
+    if settings.bar_position == "top" then
+        return anime.move_x(notify_center, 1410, -35, "right")
+    else
+        return anime.move_x(notify_center, 1410, 35, "right")
+    end
 end
 
 mini_icon:buttons(gears.table.join(awful.button({}, 1, function()
     if not notify_center.visible then
         notify_center.visible = true
-        anime.move_x(notify_center, 1410, 40, "right")
+        anime_move_open()
         reset_notification_widgets()
     else
-        anime.move_x_out(notify_center, 1410, 30, "left")
         gears.timer.start_new(0.9, function()
             notify_center.visible = false
             return false
@@ -107,7 +114,7 @@ local main_notify = wibox.widget({
 
 awesome.connect_signal("theme::colors", function(colors)
     notification_app_name_widget:set_markup(
-        maker.text(colors.fg, "Bold 10", " Notificações"))
+        maker.text(colors.fg, "Regular 10", " Notificações"))
 end)
 
 awesome.connect_signal("theme::icons", function(icons)

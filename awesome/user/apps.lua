@@ -1,10 +1,10 @@
-_G.apps = {}
+_G.apps = {}                          -- Criar um objeto para guardar as aplicações
 
-apps.terminal = "alacritty"
-apps.browser = "google-chrome-stable"
-apps.editor = "zeditor"
-apps.files = "nemo"
-apps.chat = "telegram-desktop"
-apps.music = "spotify"
+apps.terminal = "alacritty"           -- terminal
+apps.browser = "google-chrome-stable" -- navegador
+apps.editor = "zeditor"               -- editor
+apps.files = "nemo"                   -- gerenciador de arquivos
+apps.chat = "telegram-desktop"        -- chat
+apps.music = "spotify"                -- music
 
-return apps
+return apps                           -- Retornar as aplicações

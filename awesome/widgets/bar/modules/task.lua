@@ -1,77 +1,78 @@
-local dock = require("widgets.bar.modules.dock")
-local tasklist_buttons = gears.table.join(
-    awful.button({}, 1, function(c)
-        if c == client.focus then
-            c.minimized = true
-        else
-            c:emit_signal("request::activate", "tasklist", { raise = true })
-            c.first_tag:view_only()
+local dock = require("widgets.bar.modules.dock")                             -- Carregar os módulos de aplicativos
+
+local tasklist_buttons = gears.table.join(                                   -- Botões do widget de tarefas
+    awful.button({}, 1, function(c)                                          -- Botão esquerdo
+        if c == client.focus then                                            -- Se o cliente for o foco
+            c.minimized = true                                               -- Minimizar o cliente
+        else                                                                 -- Se o cliente não for o foco
+            c:emit_signal("request::activate", "tasklist", { raise = true }) -- Reativar o cliente
+            c.first_tag:view_only()                                          -- Exibir apenas o cliente
         end
     end))
 
-local task = awful.widget.tasklist {
-    screen = awful.screen.focused(),
-    filter = awful.widget.tasklist.filter.allscreen,
-    buttons = tasklist_buttons,
-    style = { shape = maker.radius(6) },
-    layout = { spacing = dpi(0), layout = wibox.layout.fixed.horizontal },
-    widget_template = {
-        id = 'background_role_container',
-        bg = colors.transparent,
-        widget = wibox.container.background,
+local task = awful.widget.tasklist {                                                -- Criar um widget para as tarefas
+    screen = awful.screen.focused(),                                                -- Obter a tela focada
+    filter = awful.widget.tasklist.filter.allscreen,                                -- Filtrar as tarefas
+    buttons = tasklist_buttons,                                                     -- Botões do widget
+    style = { shape = maker.radius(6) },                                            -- Estilo do widget
+    layout = { spacing = dpi(0), layout = wibox.layout.fixed.horizontal },          -- Layout do widget
+    widget_template = {                                                             -- Widget do widget
+        id = 'background_role_container',                                           -- ID do widget
+        bg = colors.transparent,                                                    -- Cor de fundo
+        widget = wibox.container.background,                                        -- Widget para exibir o widget
         {
-            { id = 'clienticon', widget = awful.widget.clienticon, resize = true },
-            margins = dpi(10),
-            widget = wibox.container.margin
+            { id = 'clienticon', widget = awful.widget.clienticon, resize = true }, -- Widget do cliente
+            margins = dpi(5),                                                       -- Margens
+            widget = wibox.container.margin                                         -- Widget para exibir o cliente
         }
     }
 
 }
 
-task.visible = false
+task.visible = false -- Exibir o widget de tarefas
 
-local task_open = wibox.widget {
-    markup = maker.text(colors.fg, " Regular 14", ""),
-    id = "txt",
-    font = settings.font .. " Regular 14",
-    align = "center",
-    widget = wibox.widget.textbox,
-    buttons = {
-        awful.button({}, 1, function()
-            awesome.emit_signal("widget::task")
+local task_open = wibox.widget { --  Criar um botão para abrir o widget de tarefas
+    markup = maker.text(colors.fg, " Regular 14", ""), -- Texto do botão
+    id = "txt", -- ID do botão
+    font = settings.font .. " Regular 14", -- Fonte do botão
+    align = "center", -- Alinhamento
+    widget = wibox.widget.textbox, -- Widget para exibir o texto
+    buttons = { -- Botões
+        awful.button({}, 1, function() -- Botão esquerdo
+            awesome.emit_signal("widget::task") -- Emitir o sinal de exibição do widget de tarefas
             --dock.visible = not dock.visible
         end)
     }
 }
 
-local main = wibox.widget {
-    widget = wibox.container.background,
-    bg = colors.transparent,
-    shape = maker.radius(6),
+local main = wibox.widget {                     -- Criar um widget para exibir o widget de tarefas
+    widget = wibox.container.background,        -- Widget para exibir o widget
+    bg = colors.transparent,                    -- Cor de fundo
+    shape = maker.radius(6),                    -- Forma do widget
     {
-        layout = wibox.layout.fixed.horizontal,
-        task,
-        maker.margins(task_open, 5, 5, 0, 0)
+        layout = wibox.layout.fixed.horizontal, -- Layout
+        task,                                   -- Widget de tarefas
+        maker.margins(task_open, 5, 5, 0, 0)    -- Adicionar margens
     }
 }
 
-awesome.connect_signal("widget::task", function()
-    if not task.visible then
-        task.visible = true
-        task_open.markup = maker.text(colors.fg, " Regular 14", "")
-    else
-        task.visible = false
-        task_open.markup = maker.text(colors.fg, " Regular 14", "")
+awesome.connect_signal("widget::task", function() -- Quando o widget de tarefas for exibido
+    if not task.visible then -- Se o widget de tarefas estiver oculto
+        task.visible = true -- Exibir o widget de tarefas
+        task_open.markup = maker.text(colors.fg, " Regular 14", "") -- Alterar o texto do botão
+    else -- Se o widget de tarefas estiver visível
+        task.visible = false -- Ocultar o widget de tarefas
+        task_open.markup = maker.text(colors.fg, " Regular 14", "") -- Alterar o texto do botão
     end
 end)
 
-awesome.connect_signal("change::theme", function()
-    main:set_bg(colors.transparent)
-    if not task.visible then
-        task_open:set_markup(maker.text(colors.fg, " Regular 14", ""))
-    else
-        task_open:set_markup(maker.text(colors.fg, " Regular 14", ""))
+awesome.connect_signal("change::theme", function() -- Quando o tema mudar
+    main:set_bg(colors.transparent) -- Definir o fundo do widget
+    if not task.visible then -- Se o widget de tarefas estiver oculto
+        task_open:set_markup(maker.text(colors.fg, " Regular 14", "")) -- Alterar o texto do botão
+    else -- Se o widget de tarefas estiver visível
+        task_open:set_markup(maker.text(colors.fg, " Regular 14", "")) -- Alterar o texto do botão
     end
 end)
 
-return main
+return main -- Retornar o widget

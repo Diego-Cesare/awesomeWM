@@ -166,17 +166,17 @@ end)))
 
 local description = wibox.widget({
     widget = wibox.widget.textbox,
-    markup = maker.text(colors.fg, "Bold 9", "Selecionar ou")
+    markup = maker.text(colors.fg, "Regular 9", "Selecionar ou")
 })
 
 local description_all = wibox.widget({
     widget = wibox.widget.textbox,
-    markup = maker.text(colors.fg, "Bold 9", "Mostrar mais")
+    markup = maker.text(colors.fg, "Regular 9", "Mostrar mais")
 })
 
 awesome.connect_signal("theme::colors", function(colors)
-    description:set_markup(maker.text(colors.fg, "Bold 9", "Selecionar ou"))
-    description_all:set_markup(maker.text(colors.fg, "Bold 9", "Mostrar mais"))
+    description:set_markup(maker.text(colors.fg, "Regular 9", "Selecionar ou"))
+    description_all:set_markup(maker.text(colors.fg, "Regular 9", "Mostrar mais"))
 end)
 
 local description_box = wibox.widget({
@@ -191,11 +191,11 @@ local description_box = wibox.widget({
 })
 
 wall:connect_signal("mouse::enter", function()
-    description_all.markup = maker.text(colors.orange, "Bold 9", "Mostrar mais")
+    description_all.markup = maker.text(colors.orange, "Regular 9", "Mostrar mais")
 end)
 
 wall:connect_signal("mouse::leave", function()
-    description_all.markup = maker.text(colors.fg, "Bold 9", "Mostrar mais")
+    description_all.markup = maker.text(colors.fg, "Regular 9", "Mostrar mais")
 end)
 
 local main_papers = wibox.widget({

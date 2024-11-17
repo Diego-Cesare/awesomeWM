@@ -149,6 +149,7 @@ music_widget:setup({
                             layout = wibox.layout.align.horizontal,
                             expand = "none",
                             nil,
+                            forced_height = dpi(20),
                             forced_width = dpi(100),
                             anime.scroll(song_info, 180, 60, 30),
                             nil
